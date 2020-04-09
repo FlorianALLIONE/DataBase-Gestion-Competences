@@ -108,9 +108,12 @@ function htmlConnection($users) {
     <div class="menu">
         <h1>Se Connecter :</h1>
         <form action="connection.php" method="POST" name="connection">
+            <label for="user">Choix utilisateur : </label><br/>
             <select name="user" id="user">
                 $options
-            </select>
+            </select><br/>
+            <label for="mdp">Mot de passe : </label><br/>
+            <input type="password" name="mot_de_passe" id="mdp" placeholder="ex: Bernadettepassword" required/>
             <input type="submit" name="submit" value="connexion">
         </form>
     </div>

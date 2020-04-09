@@ -167,4 +167,42 @@ function saveUsers($users, $cpt, $i) {
     }
     
 }
+
+function verifPasswd($mdp, $prenom) {
+ 
+    $database = parse_ini_file('db.ini', true);
+
+    try {
+        // On se connecte a MySQL
+        $bdd = new PDO($database['db']['url'], $database['db']['id'], $database['db']['password'], array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    }
+    catch(Exception $e) {
+        // En cas d'erreur on affcihe un message et on arrête tout
+        die("Erreur : " . $e -> getMessage());
+    }
+
+    try {
+
+
+        // Requete MySQL
+        $reponse = $bdd->prepare("SELECT passwrd FROM utilisateur WHERE prenom = :prenom");
+        $reponse->execute(array('prenom' => $prenom));
+
+
+        // Si les données existent dans la base de données
+        while ($donnees = $reponse -> fetch()) {
+            $password_hash = $donnees['passwrd'];
+        }
+    }
+    catch(Exception $e) {
+        // En cas d'erreur on affcihe un message et on arrête tout
+        die("Erreur : " . $e -> getMessage());
+    }
+
+    $mdp_verif = password_verify($mdp, $password_hash);
+
+return $mdp_verif;
+    
+}
+
 ?>

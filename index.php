@@ -28,7 +28,7 @@
     <nav class="header-nav">
         <?php 
             if(!$connected) {
-                echo htmlConnection($users); 
+                echo htmlConnection($users);
             } else {
                 echo htmlDisconnection();
             }
